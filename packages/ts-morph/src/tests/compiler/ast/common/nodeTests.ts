@@ -983,7 +983,7 @@ class MyClass {
                 "/**\n * @return {string}\n */\nfunction test() {}",
                 sourceFile => sourceFile,
                 SyntaxKind.JSDocReturnTag,
-                "@return {string}",
+                "@return {string}\n ",
                 sourceFile => {
                     // todo: in the future it would be better for this to be false and only parse the tokens on JSDoc nodes
                     expect(hasParsedTokens(sourceFile.compilerNode)).to.be.true;
@@ -2190,6 +2190,19 @@ class MyClass {
             const sourceFile = project.createSourceFile("test.ts", "");
             const node = createWrappedNode(sourceFile.compilerNode);
             expect(() => node.getProject()).to.throw();
+        });
+    });
+
+    describe(nameof<Node>(n => n.asKind), () => {
+        it("should get the node if it's the specified syntax kind", () => {
+            const project = new Project({ useInMemoryFileSystem: true });
+            const sourceFile = project.createSourceFile("test.ts", "class Test {}");
+            const statement = sourceFile.getStatements()[0];
+            expect(statement.asKind(SyntaxKind.ClassDeclaration)?.getText()).to.equal("class Test {}");
+            expect(statement.asKind(SyntaxKind.InterfaceDeclaration)).to.be.undefined;
+            expect(statement.asKindOrThrow(SyntaxKind.ClassDeclaration).getText()).to.equal("class Test {}");
+            expect(() => statement.asKindOrThrow(SyntaxKind.InterfaceDeclaration))
+                .to.throw("Expected the node to be of kind InterfaceDeclaration, but it was ClassDeclaration.");
         });
     });
 });

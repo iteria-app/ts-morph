@@ -6,7 +6,7 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 
 ## Exist
 
-**Total:** 196
+**Total:** 200
 
 * [ArrayBindingPattern](src/compiler/ast/binding/ArrayBindingPattern.ts)
     * :heavy_check_mark: elements
@@ -164,6 +164,7 @@ The disadvantage to a node not being wrapped is that it won't have helper method
     * :heavy_check_mark: moduleSpecifier
 * [ImportEqualsDeclaration](src/compiler/ast/module/ImportEqualsDeclaration.ts)
     * :heavy_check_mark: name
+    * :heavy_check_mark: isTypeOnly
     * :heavy_check_mark: moduleReference
 * [ImportExpression](src/compiler/ast/expression/ImportExpression.ts)
 * [ImportSpecifier](src/compiler/ast/module/ImportSpecifier.ts)
@@ -191,7 +192,7 @@ The disadvantage to a node not being wrapped is that it won't have helper method
     * :heavy_check_mark: statement
 * [JSDoc](src/compiler/ast/doc/JSDoc.ts)
     * :heavy_check_mark: tags
-    * :x: comment
+    * :heavy_check_mark: comment
 * [JSDocAugmentsTag](src/compiler/ast/doc/JSDocAugmentsTag.ts)
     * :x: class
 * [JSDocAuthorTag](src/compiler/ast/doc/JSDocAuthorTag.ts)
@@ -206,6 +207,10 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 * [JSDocFunctionType](src/compiler/ast/doc/JSDocFunctionType.ts)
 * [JSDocImplementsTag](src/compiler/ast/doc/JSDocImplementsTag.ts)
     * :x: class
+* [JSDocLink](src/compiler/ast/doc/JSDocLink.ts)
+    * :x: name
+    * :x: text
+* [JSDocOverrideTag](src/compiler/ast/doc/JSDocOverrideTag.ts)
 * [JSDocParameterTag](src/compiler/ast/doc/JSDocParameterTag.ts)
 * [JSDocPrivateTag](src/compiler/ast/doc/JSDocPrivateTag.ts)
 * [JSDocPropertyTag](src/compiler/ast/doc/JSDocPropertyTag.ts)
@@ -226,6 +231,8 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 * [JSDocTemplateTag](src/compiler/ast/doc/JSDocTemplateTag.ts)
     * :heavy_check_mark: constraint
     * :heavy_check_mark: typeParameters
+* [JSDocText](src/compiler/ast/doc/JSDocText.ts)
+    * :x: text
 * [JSDocThisTag](src/compiler/ast/doc/JSDocThisTag.ts)
     * :heavy_check_mark: typeExpression
 * [JSDocType](src/compiler/ast/doc/JSDocType.ts)
@@ -275,6 +282,12 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 * [LiteralExpression](src/compiler/ast/expression/LiteralExpression.ts)
 * [LiteralTypeNode](src/compiler/ast/type/LiteralTypeNode.ts)
     * :heavy_check_mark: literal
+* [MappedTypeNode](src/compiler/ast/type/MappedTypeNode.ts)
+    * :heavy_check_mark: readonlyToken
+    * :heavy_check_mark: typeParameter
+    * :heavy_check_mark: nameType
+    * :heavy_check_mark: questionToken
+    * :heavy_check_mark: type
 * [MemberExpression](src/compiler/ast/expression/MemberExpression.ts)
 * [MetaProperty](src/compiler/ast/expression/MetaProperty.ts)
     * :heavy_check_mark: keywordToken
@@ -286,6 +299,9 @@ The disadvantage to a node not being wrapped is that it won't have helper method
     * :heavy_check_mark: name
 * [ModuleBlock](src/compiler/ast/module/ModuleBlock.ts)
     * :heavy_check_mark: statements
+* [ModuleDeclaration](src/compiler/ast/module/ModuleDeclaration.ts)
+    * :heavy_check_mark: name
+    * :heavy_check_mark: body
 * NamedDeclaration - Implemented via mixin.
 * [NamedExports](src/compiler/ast/module/NamedExports.ts)
     * :heavy_check_mark: elements
@@ -296,9 +312,6 @@ The disadvantage to a node not being wrapped is that it won't have helper method
     * :heavy_check_mark: name
     * :heavy_check_mark: questionToken
     * :heavy_check_mark: type
-* [NamespaceDeclaration](src/compiler/ast/module/NamespaceDeclaration.ts)
-    * :heavy_check_mark: name
-    * :heavy_check_mark: body
 * [NamespaceExport](src/compiler/ast/module/NamespaceExport.ts)
     * :heavy_check_mark: name
 * [NamespaceImport](src/compiler/ast/module/NamespaceImport.ts)
@@ -490,7 +503,7 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 
 ## Not Exist
 
-**Total:** 57
+**Total:** 56
 
 * Bundle
 * CallChain
@@ -519,10 +532,9 @@ The disadvantage to a node not being wrapped is that it won't have helper method
 * KeywordToken
 * KeywordTypeNode
 * LiteralLikeNode
-* MappedTypeNode
 * MissingDeclaration
 * ModifierToken
-* ModuleDeclaration
+* NamespaceDeclaration
 * NamespaceExportDeclaration
 * NodeWithTypeArguments
 * NonNullChain

@@ -361,6 +361,29 @@ export class Node<NodeType extends ts.Node = ts.Node> {
     }
 
     /**
+     * Gets the node as the specified kind if it is equal to that kind, otherwise throws.
+     * @param kind - Syntax kind.
+     */
+    asKindOrThrow<TKind extends SyntaxKind>(kind: TKind): KindToNodeMappings[TKind] {
+        return errors.throwIfNullOrUndefined(
+            this.asKind(kind),
+            () => `Expected the node to be of kind ${getSyntaxKindName(kind)}, but it was ${getSyntaxKindName(this.getKind())}.`,
+        );
+    }
+
+    /**
+     * Gets the node as the specified kind if it is equal to that kind, otherwise returns undefined.
+     * @param kind - Syntax kind.
+     */
+    asKind<TKind extends SyntaxKind>(kind: TKind): KindToNodeMappings[TKind] | undefined {
+        if (this.getKind() === kind) {
+            return this as Node as KindToNodeMappings[TKind];
+        } else {
+            return undefined;
+        }
+    }
+
+    /**
      * Gets the first child by a condition or throws.
      * @param condition - Condition.
      */
@@ -2930,6 +2953,10 @@ export class Node<NodeType extends ts.Node = ts.Node> {
     static readonly isJSDocFunctionType: (node: compiler.Node | undefined) => node is compiler.JSDocFunctionType = Node.is(SyntaxKind.JSDocFunctionType);
     /** Gets if the node is a JSDocImplementsTag. */
     static readonly isJSDocImplementsTag: (node: compiler.Node | undefined) => node is compiler.JSDocImplementsTag = Node.is(SyntaxKind.JSDocImplementsTag);
+    /** Gets if the node is a JSDocLink. */
+    static readonly isJSDocLink: (node: compiler.Node | undefined) => node is compiler.JSDocLink = Node.is(SyntaxKind.JSDocLink);
+    /** Gets if the node is a JSDocOverrideTag. */
+    static readonly isJSDocOverrideTag: (node: compiler.Node | undefined) => node is compiler.JSDocOverrideTag = Node.is(SyntaxKind.JSDocOverrideTag);
     /** Gets if the node is a JSDocParameterTag. */
     static readonly isJSDocParameterTag: (node: compiler.Node | undefined) => node is compiler.JSDocParameterTag = Node.is(SyntaxKind.JSDocParameterTag);
     /** Gets if the node is a JSDocPrivateTag. */
@@ -2977,6 +3004,7 @@ export class Node<NodeType extends ts.Node = ts.Node> {
             case SyntaxKind.JSDocDeprecatedTag:
             case SyntaxKind.JSDocEnumTag:
             case SyntaxKind.JSDocImplementsTag:
+            case SyntaxKind.JSDocOverrideTag:
             case SyntaxKind.JSDocParameterTag:
             case SyntaxKind.JSDocPrivateTag:
             case SyntaxKind.JSDocPropertyTag:
@@ -2998,6 +3026,8 @@ export class Node<NodeType extends ts.Node = ts.Node> {
 
     /** Gets if the node is a JSDocTemplateTag. */
     static readonly isJSDocTemplateTag: (node: compiler.Node | undefined) => node is compiler.JSDocTemplateTag = Node.is(SyntaxKind.JSDocTemplateTag);
+    /** Gets if the node is a JSDocText. */
+    static readonly isJSDocText: (node: compiler.Node | undefined) => node is compiler.JSDocText = Node.is(SyntaxKind.JSDocText);
     /** Gets if the node is a JSDocThisTag. */
     static readonly isJSDocThisTag: (node: compiler.Node | undefined) => node is compiler.JSDocThisTag = Node.is(SyntaxKind.JSDocThisTag);
 
@@ -3251,6 +3281,14 @@ export class Node<NodeType extends ts.Node = ts.Node> {
     }
 
     /**
+     * Gets if the node is a MappedTypeNode.
+     * @param node - Node to check.
+     */
+    static isMappedTypeNode(node: compiler.Node | undefined): node is compiler.MappedTypeNode {
+        return node?.getKind() === SyntaxKind.MappedType;
+    }
+
+    /**
      * Gets if the node is a MemberExpression.
      * @param node - Node to check.
      */
@@ -3469,6 +3507,21 @@ export class Node<NodeType extends ts.Node = ts.Node> {
     }
 
     /**
+     * Gets if the node is a OverrideableNode.
+     * @param node - Node to check.
+     */
+    static isOverrideableNode<T extends compiler.Node>(node: T | undefined): node is compiler.OverrideableNode & compiler.OverrideableNodeExtensionType & T {
+        switch (node?.getKind()) {
+            case SyntaxKind.MethodDeclaration:
+            case SyntaxKind.PropertyDeclaration:
+            case SyntaxKind.Parameter:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
      * Gets if the node is a ParameterDeclaration.
      * @param node - Node to check.
      */
@@ -3647,6 +3700,7 @@ export class Node<NodeType extends ts.Node = ts.Node> {
             case SyntaxKind.BindingElement:
             case SyntaxKind.ClassDeclaration:
             case SyntaxKind.ClassExpression:
+            case SyntaxKind.Constructor:
             case SyntaxKind.GetAccessor:
             case SyntaxKind.MethodDeclaration:
             case SyntaxKind.PropertyDeclaration:
@@ -4099,6 +4153,7 @@ export class Node<NodeType extends ts.Node = ts.Node> {
             case SyntaxKind.InferType:
             case SyntaxKind.IntersectionType:
             case SyntaxKind.LiteralType:
+            case SyntaxKind.MappedType:
             case SyntaxKind.NamedTupleMember:
             case SyntaxKind.ParenthesizedType:
             case SyntaxKind.TemplateLiteralType:

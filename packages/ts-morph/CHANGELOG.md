@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="11.0.3"></a>
+## [11.0.3](https://github.com/dsherret/ts-morph/compare/11.0.2...11.0.3) (2021-07-11)
+
+
+### Bug Fixes
+
+* [#1171](https://github.com/dsherret/ts-morph/issues/1171) - Ensure the program is not sometimes reset when inspecting a symbol ([a41b7b5](https://github.com/dsherret/ts-morph/commit/a41b7b5))
+* [#1164](https://github.com/dsherret/ts-morph/issues/1164) - getting a type, manipulating, then inspecting the type may cause source file to no longer exist in project ([d8a651e](https://github.com/dsherret/ts-morph/commit/d8a651e))
+
+
+
+<a name="11.0.1"></a>
+## [11.0.1](https://github.com/dsherret/ts-morph/compare/11.0.0...11.0.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* `Node.isReferenceFindableNode(node)` should return `true` for a constructor declaration. ([b8b0a39](https://github.com/dsherret/ts-morph/commit/b8b0a39))
+
+
+
+<a name="11.0.0"></a>
+# [11.0.0](https://github.com/dsherret/ts-morph/compare/10.1.0...11.0.0) (2021-05-26)
+
+
+### Features
+
+* [#1156](https://github.com/dsherret/ts-morph/issues/1156) - Add `ReferenceFindableNode` to `ConstructorDeclaration`. ([e192d41](https://github.com/dsherret/ts-morph/commit/e192d41))
+* TypeScript 4.3 Support ([cd426a0](https://github.com/dsherret/ts-morph/commit/cd426a0))
+
+
+### BREAKING CHANGES
+
+* Upgraded to TS 4.3.
+
+
+
+<a name="10.1.0"></a>
+# [10.1.0](https://github.com/dsherret/ts-morph/compare/10.0.2...10.1.0) (2021-05-15)
+
+
+### Bug Fixes
+
+* Handle comma separated definitions with DefinitionInfo#getDeclarationNode ([#1158](https://github.com/dsherret/ts-morph/issues/1158)) ([a390e94](https://github.com/dsherret/ts-morph/commit/a390e94)) - Thanks [@IgorMinar](https://github.com/IgorMinar)!
+
+
+### Features
+
+* [#1157](https://github.com/dsherret/ts-morph/issues/1157) - Add `Node#asKind(kind: SyntaxKind)` and `Node#asKindOrThrow(kind: SyntaxKind)` methods. ([58bb5cc](https://github.com/dsherret/ts-morph/commit/58bb5cc))
+* Add MappedTypeNode Wrapper - Only navigation methods for now ([#1146](https://github.com/dsherret/ts-morph/issues/1146)) ([f74a9e2](https://github.com/dsherret/ts-morph/commit/f74a9e2)) ([6b6f1f4](https://github.com/dsherret/ts-morph/commit/6b6f1f4)) - Thanks [@nicdard](https://github.com/nicdard)!
+
+
+
 <a name="10.0.2"></a>
 ## [10.0.2](https://github.com/dsherret/ts-morph/compare/10.0.1...10.0.2) (2021-03-22)
 
